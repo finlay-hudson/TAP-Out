@@ -131,7 +131,7 @@ def run(video_path: Path, fov_x_deg: float, num_frames: int, out_dir: Path,
     latents_path = out_dir / "latents.pth"
     argus_latents = get_latents(
         normed_vid, input_eq_frames, input_masks, accelerator, settings,
-        latents_path, latents_model=latents_model,
+        latents_path, latents_model=latents_model, offload_to_cpu=settings.offload_to_cpu,
         force_get_latents=force_recompute,
     )
     del latents_model, normed_vid

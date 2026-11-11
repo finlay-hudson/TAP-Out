@@ -228,7 +228,8 @@ def run_demo(
     latents_path = out_dir / "latents.pth"
     argus_latents = get_latents(
         normed_vid, input_eq_frames, input_masks, accelerator, settings,
-        latents_path, latents_model=latents_model, force_get_latents=False,
+        latents_path, latents_model=latents_model, offload_to_cpu=settings.offload_to_cpu,
+        force_get_latents=False,
     )
     del latents_model, input_eq_frames, input_masks, normed_vid
     gc.collect()

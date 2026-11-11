@@ -32,7 +32,7 @@ Set this before running. The 16 GB setup was tested with it:
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 ```
 
-If you still run out of memory on 16 GB, lower `pipeline.decode_chunk_size` or `--num_frames`.
+If you still run out of memory on 16 GB, lower `pipeline.decode_chunk_size`. With `demo.py` and `run_argus_only.py` you can also lower `--num_frames`; `evaluate.py` always uses the paper's 32 frames.
 
 **Disk and time.** A full install needs about 26 GB: ~8 GB for the Python environment, ~4 GB of checkpoints, and ~14 GB of package and model caches. On an A40 machine, a fresh install takes ~13 minutes and one 32-frame clip takes ~9–13 minutes end to end. To keep caches off a small home directory, set `PIP_CACHE_DIR`/`UV_CACHE_DIR`, `HF_HOME` and `TORCH_HOME`.
 
@@ -276,18 +276,18 @@ Key fields:
 - `pipeline.gen_eq_height` — equirectangular resolution used for SAM2/CoTracker3 (1024 in the paper).
 - `pipeline.weight_dtype` — `float32` (paper) or `float16` (needed on 16 GB GPUs, see `configs/low_vram.yaml`).
 
-Ground-truth vs estimated poses is chosen on the command line, not in the YAML: pass `--use_gt_rot` to `evaluate.py` (and the visualisation scripts) to reproduce the "GT poses" row of Table 1.
+Ground-truth vs estimated poses is chosen on the command line, not in the YAML: pass `--use_gt_rot` to `evaluate.py` (and to `visualise_showcase.py`) to reproduce the "GT poses" row of Table 1.
 
 ## Citation
 
 ```bibtex
 @inproceedings{hudson2026tapout,
-  title     = {{TAP-Out}: Tracking Any Point in 360° via Outpainting},
-  author    = {Hudson, Finlay G. C. and Gardner, James A. D. and Smith, William A. P.},
-  booktitle = {British Machine Vision Conference (BMVC)},
-  year      = {2026},
-  eprint    = {2611.00406},
-  archivePrefix = {arXiv},
+  title         = {{TAP-Out}: Tracking Any Point in 360$^\circ$ via Outpainting},
+  author        = {Hudson, Finlay G. C. and Gardner, James A. D. and Smith, William A. P.},
+  booktitle     = {Proceedings of the British Machine Vision Conference (BMVC)},
+  year          = {2026},
+  eprint        = {2611.00406},
+  archivePrefix = {arXiv}
 }
 ```
 

@@ -166,10 +166,12 @@ def main(args, settings):
             
             # Extract latents
             latents_model = get_360_latents_model(settings.paths.unet_path, accelerator, len(input_eq_frames),
-                                                  device, settings.weight_dtype, blend_frames=10, num_frames_batch=25)
+                                                  device, settings.weight_dtype, blend_frames=settings.blend_frames,
+                                                  num_frames_batch=settings.num_frames_batch)
             
             argus_latents = get_latents(normed_vid[0], input_eq_frames, input_masks, accelerator, settings, latents_path,
-                                        latents_model=latents_model, force_get_latents=True)
+                                        latents_model=latents_model, offload_to_cpu=settings.offload_to_cpu,
+                                        force_get_latents=True)
             
             torch.save({"rotations": R_w2c.cpu(), "fov_x": fov_x}, rotations_path)
             
