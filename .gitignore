@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+*.so
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Model checkpoints & data (users provide their own)
+checkpoints/
+data_local/
+outputs/
+argus_feats/
+results/
+metrics_out/
+
+# Cached predictions / logs
+*.pth
+*.pt
+*.npy
+*.log
+!assets/**/*.txt
+
+# Debug/scratch
+debugs/
+scratch/
+*.jpg
+*.png
+!docs/**/*.png

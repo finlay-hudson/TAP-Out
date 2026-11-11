@@ -1,0 +1,29 @@
+# TAP-Out configuration.
+# Copy to configs/local.yaml and edit paths for your machine.
+
+paths:
+  # Directory containing the Argus U-Net (config.json + diffusion_pytorch_model.safetensors).
+  unet_path: ./checkpoints/argus
+  # SAM2 hiera-large checkpoint (.pt).
+  sam_checkpoint: ./checkpoints/sam2/sam2_hiera_large.pt
+  # TAPVid360-TAPOut dataset root (contains dataset/<clip>/perspective_frames/ + data.pt).
+  # Download from https://huggingface.co/datasets/fhudson96/TAPVid360-10k (see README "Data").
+  tapvid360_data_root: ./data_local/TAPVid360-10k
+  # Where cached latents, per-clip results and metrics are written.
+  out_root: ./outputs
+
+# Pipeline hyperparameters (match the paper).
+pipeline:
+  argus_eq_height: 512      # Argus input equirectangular height (2:1 aspect => 1024x512).
+  gen_eq_height: 1024       # High-res equirectangular used downstream for SAM2+CoTracker.
+  weight_dtype: float32     # float32 | float16 | bfloat16
+  decode_chunk_size: 10     # VAE decode chunk (increase on beefy GPUs).
+  offload_to_cpu: true      # Offload big tensors to CPU between stages.
+  blend_frames: 10          # Argus temporal blending window.
+  num_frames_batch: 25      # Argus per-batch frame count.
+
+# Evaluation defaults.
+eval:
+  skip_if_exists: true      # Skip clips whose metrics files already exist.
+  specific_video_names: null # Optional explicit list of "<clip>/<query>" (takes precedence over split_file).
+  split_file: assets/tapvid360_tapout_subset.txt  # Path to a clip list (JSON array OR one clip per line). Used only when specific_video_names is null.
