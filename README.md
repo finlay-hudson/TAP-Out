@@ -4,7 +4,7 @@ Official implementation of **TAP-Out** (BMVC 2026) — a simple, modular pipelin
 
 **Finlay G. C. Hudson, James A. D. Gardner, William A. P. Smith**
 
-[[Paper (arXiv:2611.00406)](https://arxiv.org/abs/2611.00406)] [[TAPVid360-10k dataset](https://huggingface.co/datasets/fhudson96/TAPVid360-10k)]
+[[Project page](https://finlay-hudson.github.io/tapout/)] [[Paper (arXiv:2611.00406)](https://arxiv.org/abs/2611.00406)] [[TAPVid360-10k dataset](https://huggingface.co/datasets/fhudson96/TAPVid360-10k)]
 
 - **Benchmark**: State-of-the-art on TAPVid360-10k, in-view and out-of-view splits.
 - **Modularity**: This repo ships with CoTracker3. Tracking is a separate stage, so you can swap in another 2D tracker, but you'll need to add that integration yourself.
