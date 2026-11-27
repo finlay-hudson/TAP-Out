@@ -255,9 +255,12 @@ def main(args, settings):
         pred_unit_vectors[0] = data.trajectory[0, 0]
         pred_points = mapper.point.vc.to_ij(pred_unit_vectors)
         
+        # Per frame: CoTracker3's in-frame tracks are used for every point of a frame only if all predicted points are
+        # in front of the camera and inside the image. (The paper run checked only the right and bottom edges.)
         pred_in_front_of_camera = ~(pred_unit_vectors[..., 0] < 0.1).any(1)
-        points_in_frame = (((pred_points[..., 0] < data.video.shape[-1]) & (
-                pred_points[..., 1] < data.video.shape[-2])).all(-1)) & pred_in_front_of_camera
+        W, H = data.video.shape[-1], data.video.shape[-2]
+        points_in_frame = ((pred_points[..., 0] >= 0) & (pred_points[..., 0] < W) &
+                           (pred_points[..., 1] >= 0) & (pred_points[..., 1] < H)).all(-1) & pred_in_front_of_camera
 
         final_results = pred_unit_vectors.clone()
         ct_preds = mapper.point.ij.to_vc(ct_tracks)
